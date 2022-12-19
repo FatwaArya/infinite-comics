@@ -14,7 +14,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["tailwindui.com"],
+    domains: ["tailwindui.com", "cdn.discordapp.com"],
   },
 };
 export default config;

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Session } from "next-auth";
 import Image from "next/image";
+import { signIn, signOut } from "next-auth/react";
 
 // const user = {
 //   name: "Tom Cook",
@@ -104,13 +105,6 @@ export default function Navbar({ data }: { data: Session | null }) {
                 {data ? (
                   <>
                     {" "}
-                    <button
-                      type="button"
-                      className="flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
                     <Menu as="div" className="relative ml-4 flex-shrink-0">
                       <div>
                         <Menu.Button className="flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -143,6 +137,11 @@ export default function Navbar({ data }: { data: Session | null }) {
                                     active ? "bg-gray-100" : "",
                                     "block py-2 px-4 text-sm text-gray-700"
                                   )}
+                                  onClick={() => {
+                                    if (item.name === "Sign out") {
+                                      signOut();
+                                    }
+                                  }}
                                 >
                                   {item.name}
                                 </Link>
@@ -157,8 +156,9 @@ export default function Navbar({ data }: { data: Session | null }) {
                   <button
                     type="button"
                     className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={() => signIn("discord")}
                   >
-                    Login
+                    Sign In
                   </button>
                 )}
               </div>
@@ -223,13 +223,6 @@ export default function Navbar({ data }: { data: Session | null }) {
                     {data?.user?.email}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (
@@ -238,6 +231,12 @@ export default function Navbar({ data }: { data: Session | null }) {
                     as="a"
                     href={item.href}
                     className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                    //if item.name is "Sign out", then sign out
+                    onClick={() => {
+                      if (item.name === "Sign out") {
+                        signOut();
+                      }
+                    }}
                   >
                     {item.name}
                   </Disclosure.Button>
