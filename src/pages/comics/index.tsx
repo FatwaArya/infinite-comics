@@ -3,12 +3,12 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { trpc } from "../utils/trpc";
-import Navbar from "../components/navbar";
-import { NextPageWithLayout } from "./_app";
 import { ReactElement } from "react";
+import { NextPageWithLayout } from "../_app";
+import Navbar from "../../components/navbar";
+import Form from "../../components/form";
 
-const Home: NextPageWithLayout = () => {
+const Comics: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -20,8 +20,8 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-Home.getLayout = function getLayout(page: ReactElement) {
+Comics.getLayout = function getLayout(page: ReactElement) {
   return <Navbar>{page}</Navbar>;
 };
 
-export default Home;
+export default Comics;
