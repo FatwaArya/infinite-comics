@@ -7,7 +7,7 @@ import { trpc } from "../utils/trpc";
 import Navbar from "../components/navbar";
 
 const Home: NextPage = () => {
-  const { data } = useSession();
+  const { data: UserData } = useSession();
 
   return (
     <>
@@ -17,11 +17,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Navbar
-        // name={data?.user?.name}
-        // email={data?.user?.email}
-        // imageUrl={data?.user?.image}
-        />
+        <Navbar data={UserData} />
       </div>
     </>
   );

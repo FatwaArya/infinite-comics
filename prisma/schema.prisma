@@ -42,14 +42,13 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?    @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Bookmark      Bookmark[]
 }
 
 model VerificationToken {
@@ -61,19 +60,21 @@ model VerificationToken {
 }
 
 model Comic {
-  id        String     @id @default(cuid())
-  ComicUrl  String
-  Bookmark  Bookmark[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-}
-
-model Bookmark {
   id        String   @id @default(cuid())
-  UserId    String
-  user      User?    @relation(fields: [UserId], references: [id], onDelete: Cascade)
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Comic     Comic?   @relation(fields: [comicId], references: [id])
-  comicId   String?
+  assets    Asset[]
+
+  @@unique([id, name])
+}
+
+model Asset {
+  id        String   @id @default(cuid())
+  part      String
+  comicUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Comic     Comic    @relation(fields: [comicId], references: [id])
+  comicId   String
 }
