@@ -60,13 +60,15 @@ model VerificationToken {
 }
 
 model Comic {
-  id        String   @id @default(cuid())
-  name      String
+  id     String @id @default(cuid())
+  title  String
+  author String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   assets    Asset[]
 
-  @@unique([id, name])
+  @@unique([id, title])
 }
 
 model Asset {
