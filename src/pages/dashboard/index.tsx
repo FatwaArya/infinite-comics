@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { DashboardLayout } from "../../components/dasboardLayout";
 import ComicForm from "../../components/comic/comicForm";
+import ComicAssetForm from "../../components/comic/comicAssetForm";
 
 const Dashboard: NextPageWithLayout = () => {
   const { data: Admin } = useSession();
@@ -16,6 +17,8 @@ const Dashboard: NextPageWithLayout = () => {
       </Head>
       <div>
         <ComicForm />
+        {/* asset */}
+        <ComicAssetForm />
       </div>
     </>
   );

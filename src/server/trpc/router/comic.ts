@@ -3,7 +3,24 @@ import { any, z } from "zod";
 import { TRPCError } from "@trpc/server";
 
 export const comicRouter = router({
-  uploadComic: protectedProcedure
+  createComic: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        author: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const prisma = ctx.prisma;
+
+      const comic = await prisma.comic.create({
+        data: {
+          title: input.title,
+          author: input.author,
+        },
+      });
+    }),
+  uploadComicAsset: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -34,13 +51,35 @@ export const comicRouter = router({
         return data;
       });
 
-      console.log(comicImages);
-
       //   prisma.asset.create({
       //     data: {
       //       part: part,
       //       images: ,
       //     },
       //   });
+    }),
+  //using infiniteQuery to get all chapters on specific comic
+  getComicInfinite: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        cursor: z.string().optional(),
+        limit: z.number().min(1).max(100).default(10),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const prisma = ctx.prisma;
+      const comic = await prisma.comic.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          assets: {
+            take: input.limit,
+            skip: input.cursor ? 1 : 0,
+            cursor: input.cursor ? { id: input.cursor } : undefined,
+          },
+        },
+      });
     }),
 });
