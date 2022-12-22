@@ -7,7 +7,7 @@ import { trpc } from "../utils/trpc";
 import Navbar from "../components/navbar";
 import { NextPageWithLayout } from "./_app";
 import { ReactElement } from "react";
-import ProductList from "../components/productList";
+import ComicList from "../components/comic/comicList";
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -18,7 +18,7 @@ const Home: NextPageWithLayout = () => {
         <link rel="icon" href="/icon.png" />
       </Head>
       <div>
-        <ProductList />
+        <ComicList />
       </div>
     </>
   );

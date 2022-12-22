@@ -50,8 +50,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       icon: HomeIcon,
       current: false,
     },
-
-    { name: "Settings", href: "#", icon: Cog6ToothIcon, current: false },
+    { name: "comic", href: "/dashboard/comic", icon: HomeIcon, current: false },
   ]);
 
   const { asPath } = useRouter();

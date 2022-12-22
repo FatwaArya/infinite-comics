@@ -56,7 +56,7 @@ const products = [
   // More products...
 ];
 
-export default function ProductList() {
+export default function ComicList() {
   return (
     <div className="">
       <div className="mx-auto max-w-2xl py-4 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">

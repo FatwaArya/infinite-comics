@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { DashboardLayout } from "../../components/dasboardLayout";
 import ComicForm from "../../components/comic/comicForm";
 
-const Dashboard: NextPageWithLayout = () => {
+const DashboardComic: NextPageWithLayout = () => {
   const { data: Admin } = useSession();
   return (
     <>
@@ -21,7 +21,7 @@ const Dashboard: NextPageWithLayout = () => {
   );
 };
 
-Dashboard.getLayout = function getLayout(page) {
+DashboardComic.getLayout = function getLayout(page) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
@@ -44,4 +44,4 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   };
 }
 
-export default Dashboard;
+export default DashboardComic;
