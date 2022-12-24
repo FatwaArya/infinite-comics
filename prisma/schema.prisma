@@ -73,7 +73,7 @@ model Comic {
 
 model Asset {
   id        String   @id @default(cuid())
-  part      String
+  part      Int
   comicUrl  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

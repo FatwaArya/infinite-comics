@@ -27,17 +27,17 @@ export const comicRouter = router({
         comicImages: z.array(z.string()),
       })
     )
-    .mutation(({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       //loop through the files, and upload them to supabase, then return the urls save them to the database
 
       const supabase = ctx.supabase;
       const prisma = ctx.prisma;
       let part = 0;
-
       const comicImages = input.comicImages.map(async (image) => {
+        //upload to supabase
         const { data, error } = await supabase.storage
-          .from("comic")
-          .upload(`${input.id}-${part}`, image, {
+          .from("comic-asset")
+          .upload(`comic-${input.id}-${part}.png`, image, {
             cacheControl: "3600",
             upsert: false,
           });
@@ -47,16 +47,25 @@ export const comicRouter = router({
             message: error.message,
           });
         }
-        part++;
-        return data;
-      });
+        //get the url
+        const { data: url } = await supabase.storage
+          .from("comic-asset")
+          .getPublicUrl(data.path);
 
-      //   prisma.asset.create({
-      //     data: {
-      //       part: part,
-      //       images: ,
-      //     },
-      //   });
+        part++;
+        return {
+          comicId: input.id,
+          part: part,
+          comicUrl: url.publicUrl,
+        };
+      });
+      //make comicImages an array of objects
+      const comicUrls = await Promise.all(comicImages);
+
+      //create many comic assets in the database connected to the comicID
+      const comic = await prisma.asset.createMany({
+        data: [...comicUrls],
+      });
     }),
   //using infiniteQuery to get all chapters on specific comic
   getComicInfinite: publicProcedure
