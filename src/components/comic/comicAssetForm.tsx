@@ -3,7 +3,6 @@ import { supabase } from "../../utils/supabase";
 import { trpc } from "../../utils/trpc";
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, SparklesIcon } from "@heroicons/react/24/solid";
-import Example from "../comboBox";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -50,7 +49,7 @@ export default function ComicAssetForm() {
 
           //iterate through the files and upload them
           for (let i = 0; i < assetComic.length; i++) {
-            const { data, error } = await supabase.storage
+            const { data } = await supabase.storage
               .from("comic-asset")
               .upload(
                 `comic-${title}-${assetComic[i]?.name}-${chapter}-${part}`,

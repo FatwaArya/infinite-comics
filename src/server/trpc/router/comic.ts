@@ -1,14 +1,5 @@
-import { router, publicProcedure, protectedProcedure } from "../trpc";
-import { any, z } from "zod";
-import { TRPCError } from "@trpc/server";
-
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
+import { z } from "zod";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const comicRouter = router({
   getComics: protectedProcedure.input(z.object({})).query(async ({ ctx }) => {
