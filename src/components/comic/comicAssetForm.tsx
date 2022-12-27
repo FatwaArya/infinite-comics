@@ -58,7 +58,7 @@ export default function ComicAssetForm() {
               );
 
             const { data: url } = supabase.storage
-              .from("comic-cover")
+              .from("comic-asset")
               .getPublicUrl(data?.path ?? "");
             part++;
 

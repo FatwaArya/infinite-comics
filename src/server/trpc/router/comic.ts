@@ -18,6 +18,7 @@ export const comicRouter = router({
       select: {
         id: true,
         title: true,
+        image: true,
       },
     });
   }),
@@ -70,17 +71,31 @@ export const comicRouter = router({
     )
     .query(async ({ input, ctx }) => {
       const prisma = ctx.prisma;
-      const comic = await prisma.comic.findUnique({
+      const cursor = input.cursor;
+      const comics = prisma.comic.findUnique({
         where: {
           id: input.id,
         },
         include: {
           assets: {
-            take: input.limit,
+            take: input.limit + 1,
             skip: input.cursor ? 1 : 0,
             cursor: input.cursor ? { id: input.cursor } : undefined,
+            orderBy: {
+              chapter: "asc",
+            },
           },
         },
       });
+      let nextCursor: typeof cursor | undefined = undefined;
+      const comic = await comics;
+      //@ts-ignore
+      if (comic?.assets?.length > input.limit) {
+        nextCursor = comic?.assets[input.limit - 1]?.id;
+      }
+      return {
+        comics: comic?.assets,
+        nextCursor,
+      };
     }),
 });
