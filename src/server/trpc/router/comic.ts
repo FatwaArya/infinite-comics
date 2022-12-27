@@ -80,7 +80,6 @@ export const comicRouter = router({
       });
       let nextCursor: typeof cursor | undefined = undefined;
       const comic = await comics;
-      //@ts-ignore
       if (comic?.assets?.length > input.limit) {
         nextCursor = comic?.assets[input.limit - 1]?.id;
       }
