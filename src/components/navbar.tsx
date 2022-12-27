@@ -1,16 +1,11 @@
-import { Fragment, FunctionComponent, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import {
-  BellIcon,
-  Bars3BottomRightIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { Session } from "next-auth";
-import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { Fragment, useEffect, useState } from "react";
 
 type NavbarLayoutProps = {
   children: React.ReactNode;

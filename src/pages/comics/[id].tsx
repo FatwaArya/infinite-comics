@@ -1,12 +1,11 @@
-import { useRouter } from "next/router";
-import { NextPageWithLayout } from "../_app";
-import Navbar from "../../components/navbar";
-import { RouterInputs, RouterOutputs, trpc } from "../../utils/trpc";
-import { useScrollPosition } from "../../hooks/useScrollPosition";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import Image from "next/image";
 import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Navbar from "../../components/navbar";
+import { useScrollPosition } from "../../hooks/useScrollPosition";
+import { trpc } from "../../utils/trpc";
+import { NextPageWithLayout } from "../_app";
 const Limit = 10;
 
 const ComicPage: NextPageWithLayout = () => {

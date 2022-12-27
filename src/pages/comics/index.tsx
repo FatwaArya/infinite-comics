@@ -1,12 +1,8 @@
-import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 import { ReactElement } from "react";
-import { NextPageWithLayout } from "../_app";
 import Navbar from "../../components/navbar";
-import ComicForm from "../../components/comic/comicForm";
+import { NextPageWithLayout } from "../_app";
 
 const Comics: NextPageWithLayout = () => {
   return (
