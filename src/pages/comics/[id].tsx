@@ -6,7 +6,7 @@ import Navbar from "../../components/navbar";
 import { useScrollPosition } from "../../hooks/useScrollPosition";
 import { trpc } from "../../utils/trpc";
 import { NextPageWithLayout } from "../_app";
-const Limit = 10;
+const Limit = 2;
 
 const ComicPage: NextPageWithLayout = () => {
   const router = useRouter();
