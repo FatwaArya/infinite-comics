@@ -56,8 +56,7 @@ export const comicRouter = router({
       //loop through the files, and upload them to supabase, then return the urls save them to the database
 
       const prisma = ctx.prisma;
-
-      //createMany comic assets
+      console.log(input.comicAsset);
       const comic = await prisma.asset.createMany({
         data: [...input.comicAsset],
       });

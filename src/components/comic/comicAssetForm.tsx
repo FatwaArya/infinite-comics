@@ -15,6 +15,7 @@ interface Comic {
 
 export default function ComicAssetForm() {
   const { data: comics } = trpc.comic.getComics.useQuery({});
+  const createComicAsset = trpc.comic.uploadComicAsset.useMutation();
   const [query, setQuery] = useState("");
 
   const filteredComics =
@@ -66,15 +67,9 @@ export default function ComicAssetForm() {
             });
           }
 
-          // await createComic.mutateAsync({
-          //   title,
-          //   description,
-          //   image: url.publicUrl,a
-          // });
-
-          // target.title.value = "";
-          // target.description.value = "";
-          // target.coverComic.files = new DataTransfer().files;
+          await createComicAsset.mutateAsync({
+            comicAsset: asset,
+          });
         }}
       >
         <div className="space-y-8 divide-y divide-gray-200">
