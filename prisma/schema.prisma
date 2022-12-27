@@ -60,9 +60,10 @@ model VerificationToken {
 }
 
 model Comic {
-  id     String @id @default(cuid())
-  title  String
-  author String
+  id          String  @id @default(cuid())
+  title       String  @unique
+  image       String?
+  description String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -72,11 +73,11 @@ model Comic {
 }
 
 model Asset {
-  id        String   @id @default(cuid())
-  part      Int
-  comicUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Comic     Comic    @relation(fields: [comicId], references: [id])
-  comicId   String
+  id         String   @id @default(cuid())
+  part       Int
+  comicUrl   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Comic      Comic?   @relation(fields: [comicTitle], references: [title])
+  comicTitle String
 }

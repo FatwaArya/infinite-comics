@@ -109,7 +109,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="absolute top-0 right-0 -mr-12 pt-2">
+                  <div className="absolute top-0 right-14 -mr-12 pt-2">
                     <button
                       type="button"
                       className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -117,7 +117,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                     >
                       <span className="sr-only">Close sidebar</span>
                       <Bars3BottomLeftIcon
-                        className="h-6 w-6 text-white"
+                        className="h-6 w-6 text-black"
                         aria-hidden="true"
                       />
                     </button>
@@ -125,7 +125,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 </Transition.Child>
                 <div className="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                   <div className="flex flex-shrink-0 items-center px-4">
-                    <span className="">Infinte Comics</span>
+                    <Image src="/icon.png" alt="icon" width={50} height={50} />
                   </div>
                   <nav className="mt-5 space-y-1 px-2">
                     {navigation.map((item) => (
@@ -191,7 +191,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
               <div className="flex flex-shrink-0 items-center px-4">
                 <Link href={"/"}>
-                  <span className="font-silk text-4xl">Infinite Comics</span>
+                  <Image src="/icon.png" alt="icon" width={50} height={50} />
                 </Link>
               </div>
               <nav className="mt-5 flex-1 space-y-1 bg-white px-2">

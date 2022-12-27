@@ -18,8 +18,8 @@ type CreateContextOptions = {
 export const createContextInner = async (opts: CreateContextOptions) => {
   return {
     session: opts.session,
-    prisma,
     supabase,
+    prisma,
   };
 };
 

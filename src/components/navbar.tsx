@@ -17,8 +17,7 @@ type NavbarLayoutProps = {
 };
 
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Bookmark", href: "#" },
   { name: "Sign out", href: "#" },
 ];
 

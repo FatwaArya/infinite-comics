@@ -16,7 +16,7 @@ const Dashboard: NextPageWithLayout = () => {
         <title>Dashboard | {Admin?.user?.name}</title>
       </Head>
       <div>
-        <ComicForm />
+        {/* <ComicForm /> */}
         {/* asset */}
         <ComicAssetForm />
       </div>

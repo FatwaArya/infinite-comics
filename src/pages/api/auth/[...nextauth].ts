@@ -25,6 +25,10 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  //redirects to the home if the user is failed to login
+  pages: {
+    signIn: "/",
+  },
 };
 
 export default NextAuth(authOptions);
