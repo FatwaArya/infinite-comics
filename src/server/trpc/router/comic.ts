@@ -2,7 +2,7 @@ import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const comicRouter = router({
-  getComics: protectedProcedure.input(z.object({})).query(async ({ ctx }) => {
+  getComics: publicProcedure.input(z.object({})).query(async ({ ctx }) => {
     const prisma = ctx.prisma;
     //find only id and title
     return prisma.comic.findMany({
