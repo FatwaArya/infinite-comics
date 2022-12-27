@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { trpc } from "../../utils/trpc";
 import { supabase } from "../../utils/supabase";
 
@@ -22,7 +21,7 @@ export default function ComicForm() {
           const description = target.description.value;
           const coverComic = target.coverComic.files[0] as File;
 
-          const { data: path, error } = await supabase.storage
+          const { data: path } = await supabase.storage
             .from("comic-cover")
             .upload(`comic-${title}`, coverComic);
 
