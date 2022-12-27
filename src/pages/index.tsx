@@ -1,13 +1,9 @@
-import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
 
-import { trpc } from "../utils/trpc";
-import Navbar from "../components/navbar";
-import { NextPageWithLayout } from "./_app";
 import { ReactElement } from "react";
 import ComicList from "../components/comic/comicList";
+import Navbar from "../components/navbar";
+import { NextPageWithLayout } from "./_app";
 
 const Home: NextPageWithLayout = () => {
   return (
