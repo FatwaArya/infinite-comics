@@ -1,21 +1,10 @@
-import { Children, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  //   MenuIcon,
-  UsersIcon,
-  Cog6ToothIcon,
-  Bars3BottomLeftIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3BottomLeftIcon, HomeIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { boolean } from "zod";
+import { Fragment, useEffect, useState } from "react";
 
 // const navigation = [
 //   {
@@ -40,7 +29,7 @@ type DashboardLayoutProps = {
   children: React.ReactNode;
 };
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
-  const { data: userData, status } = useSession();
+  const { data: userData } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [navigation, setNavigation] = useState([
