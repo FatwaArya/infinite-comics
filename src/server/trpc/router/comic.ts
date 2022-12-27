@@ -45,6 +45,7 @@ export const comicRouter = router({
       z.object({
         comicAsset: z.array(
           z.object({
+            chapter: z.number(),
             part: z.number(),
             comicTitle: z.string(),
             comicUrl: z.string(),
@@ -53,11 +54,8 @@ export const comicRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      //loop through the files, and upload them to supabase, then return the urls save them to the database
-
       const prisma = ctx.prisma;
-      console.log(input.comicAsset);
-      const comic = await prisma.asset.createMany({
+      return await prisma.asset.createMany({
         data: [...input.comicAsset],
       });
     }),

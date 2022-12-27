@@ -35,11 +35,13 @@ export default function ComicAssetForm() {
           const target = e.target as typeof e.target & {
             title: { value: string; id: string };
             assetComic: { files: FileList };
+            chapter: { value: string };
           };
 
           //expect assetComic.files to be an array of files
           const assetComic = target.assetComic.files as FileList;
           const title = target.title.value;
+          const chapter = target.chapter.value;
           //store the path of the uploaded file on array of objects
           const asset = [];
           let part = 0;
@@ -51,7 +53,7 @@ export default function ComicAssetForm() {
             const { data, error } = await supabase.storage
               .from("comic-asset")
               .upload(
-                `comic-${title}-${assetComic[i]?.name}`,
+                `comic-${title}-${assetComic[i]?.name}-${chapter}-${part}`,
                 assetComic[i] as File
               );
 
@@ -61,6 +63,7 @@ export default function ComicAssetForm() {
             part++;
 
             asset.push({
+              chapter: parseInt(chapter.toString()),
               part,
               comicTitle: title,
               comicUrl: url.publicUrl,
@@ -148,6 +151,25 @@ export default function ComicAssetForm() {
                     )}
                   </div>
                 </Combobox>
+              </div>
+
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="chapter"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Chapter
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="number"
+                    name="chapter"
+                    id="chapter"
+                    autoComplete="title"
+                    min={1}
+                    className="block w-full min-w-0 flex-1  rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  />
+                </div>
               </div>
 
               <div className="sm:col-span-6">
