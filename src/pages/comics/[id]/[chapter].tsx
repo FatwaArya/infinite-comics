@@ -2,15 +2,16 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Navbar from "../../components/navbar";
-import { useScrollPosition } from "../../hooks/useScrollPosition";
-import { trpc } from "../../utils/trpc";
-import { NextPageWithLayout } from "../_app";
+import { NextPageWithLayout } from "../../_app";
+import { useScrollPosition } from "../../../hooks/useScrollPosition";
+import { trpc } from "../../../utils/trpc";
+import Navbar from "../../../components/navbar";
+
 const Limit = 2;
 
 const ComicPage: NextPageWithLayout = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, chapter } = router.query;
 
   const scrollPosition = useScrollPosition();
 
@@ -19,6 +20,7 @@ const ComicPage: NextPageWithLayout = () => {
       {
         id: id as string,
         limit: Limit,
+        chapter: parseInt(chapter as string),
       },
       {
         getNextPageParam: (lastPage) => {
