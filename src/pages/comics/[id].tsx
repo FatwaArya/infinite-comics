@@ -6,6 +6,7 @@ import Navbar from "../../components/navbar";
 import { useScrollPosition } from "../../hooks/useScrollPosition";
 import { trpc } from "../../utils/trpc";
 import { NextPageWithLayout } from "../_app";
+import ComicChapterList from "../../components/comic/comicChapterList";
 const Limit = 2;
 
 const ComicPage: NextPageWithLayout = () => {
@@ -29,6 +30,11 @@ const ComicPage: NextPageWithLayout = () => {
         },
       }
     );
+
+  const { data: comic } = trpc.comic.getComic.useQuery({
+    id: id as string,
+  });
+
   const comics = data?.pages.flatMap((page) => page?.comics) ?? [];
 
   useEffect(() => {
@@ -36,25 +42,33 @@ const ComicPage: NextPageWithLayout = () => {
       fetchNextPage();
     }
   }, [scrollPosition, hasNextPage, isFetching, fetchNextPage]);
-
+  //        {comics.map((comic) => (
+  //     <div key={comic?.id} className="flex justify-center">
+  //     {/* make separate line if there a change in comic chapter*/}
+  //     {comic?.chapter !== comics[comics.indexOf(comic) - 1]?.chapter && (
+  //       <div className="flex justify-center">
+  //         <h1 className="text-2xl font-bold text-gray-900">
+  //           {comic?.chapter}
+  //         </h1>
+  //       </div>
+  //     )}
+  //     <Image
+  //       src={comic?.comicUrl || ""}
+  //       alt={"good comics"}
+  //       className="object-cover object-center group-hover:opacity-75"
+  //       height={202}
+  //       width={802}
+  //     />
+  //   </div>
+  // ))}
+  // {!hasNextPage && <p>No more items to load</p>}
   return (
     <>
       <Head>
-        <title>Comic</title>
+        <title>{comic?.title} on Infinte Comics</title>
       </Head>
       <div>
-        {comics.map((comic) => (
-          <div key={comic?.id} className="flex justify-center">
-            <Image
-              src={comic?.comicUrl || ""}
-              alt={"good comics"}
-              className="object-cover object-center group-hover:opacity-75"
-              height={202}
-              width={802}
-            />
-          </div>
-        ))}
-        {!hasNextPage && <p>No more items to load</p>}
+        <ComicChapterList title={comic?.title} />
       </div>
     </>
   );

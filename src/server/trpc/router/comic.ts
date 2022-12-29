@@ -2,6 +2,44 @@ import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const comicRouter = router({
+  getComic: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const prisma = ctx.prisma;
+      return prisma.comic.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+  getComicChapter: publicProcedure
+    .input(
+      z.object({
+        comicTitle: z.string().optional(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const prisma = ctx.prisma;
+      return prisma.asset.findMany({
+        where: {
+          comicTitle: input.comicTitle,
+        },
+        distinct: ["chapter"],
+        select: {
+          id: true,
+          chapter: true,
+          part: true,
+          createdAt: true,
+        },
+        orderBy: {
+          chapter: "desc",
+        },
+      });
+    }),
   getComics: publicProcedure.input(z.object({})).query(async ({ ctx }) => {
     const prisma = ctx.prisma;
     //find only id and title
