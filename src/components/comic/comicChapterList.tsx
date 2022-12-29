@@ -40,7 +40,7 @@ export default function ComicChapterList({
     <>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {chapters?.map((chapter) => (
-          <Link href={`/comics/${titleId}/${chapter.chapter}`}>
+          <Link href={`/comics/${titleId}/${chapter.chapter}`} key={chapter.id}>
             <ComicChapter
               id={chapter.id}
               chapter={chapter.chapter}
