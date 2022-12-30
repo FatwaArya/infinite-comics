@@ -49,6 +49,9 @@ export const comicRouter = router({
         title: true,
         image: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }),
   createComic: protectedProcedure

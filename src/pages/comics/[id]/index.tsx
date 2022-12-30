@@ -10,24 +10,26 @@ const ComicPage: NextPageWithLayout = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: comic } = trpc.comic.getComic.useQuery({
+  const { data: comic, isLoading } = trpc.comic.getComic.useQuery({
     id: id as string,
   });
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <Head>
-        <title>{comic?.title} on Infinte Comics</title>
+        <title>Read {comic?.title} on Infinte Comics</title>
       </Head>
       <div>
         <div className="my-16 flex flex-col items-center md:flex-row md:items-start">
           <Image
             src={comic?.image || ""}
             alt={comic?.title || ""}
-            height={28}
-            width={288}
+            height={150}
+            width={188}
           />
-          <div className="px-4 ">
+          <div className=" px-4">
             <h1 className="text-center text-2xl font-bold text-gray-900 md:text-left">
               {comic?.title}
             </h1>
