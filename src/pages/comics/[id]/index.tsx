@@ -20,7 +20,7 @@ const ComicPage: NextPageWithLayout = () => {
         <title>{comic?.title} on Infinte Comics</title>
       </Head>
       <div>
-        <div className="my-16 flex">
+        <div className="colum my-16 flex flex-col items-center">
           <Image
             src={comic?.image || ""}
             alt={comic?.title || ""}
@@ -28,7 +28,9 @@ const ComicPage: NextPageWithLayout = () => {
             width={288}
           />
           <div className="px-4">
-            <h1 className="text-2xl font-bold text-gray-900">{comic?.title}</h1>
+            <h1 className="text-center text-2xl font-bold text-gray-900">
+              {comic?.title}
+            </h1>
             <p>{comic?.description}</p>
           </div>
         </div>
