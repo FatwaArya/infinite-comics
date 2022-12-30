@@ -70,6 +70,7 @@ model Comic {
   assets    Asset[]
 
   @@unique([id, title])
+  @@index([title], name: "title")
 }
 
 model Asset {
@@ -81,4 +82,7 @@ model Asset {
   updatedAt  DateTime @updatedAt
   Comic      Comic?   @relation(fields: [comicTitle], references: [title])
   comicTitle String
+
+  @@index([comicUrl], name: "comicUrl")
+  @@index([comicTitle], name: "comicTitle")
 }
