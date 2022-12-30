@@ -204,41 +204,52 @@ export default function Navbar({ children }: NavbarLayoutProps) {
               </div>
               <div className="border-t border-gray-200 pt-4 pb-3">
                 <div className="flex items-center px-4">
-                  <div className="flex-shrink-0">
-                    <Image
-                      className="h-10 w-10 rounded-full"
-                      src={UserData?.user?.image || ""}
-                      alt=""
-                      width={32}
-                      height={32}
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">
-                      {UserData?.user?.name}
-                    </div>
-                    <div className="text-sm font-medium text-gray-500">
-                      {UserData?.user?.email}
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-3 space-y-1 px-2">
-                  {userNavigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                      //if item.name is "Sign out", then sign out
-                      onClick={() => {
-                        if (item.name === "Sign out") {
-                          signOut();
-                        }
-                      }}
+                  {UserData ? (
+                    <>
+                      <div className="flex-shrink-0">
+                        <Image
+                          className="h-10 w-10 rounded-full"
+                          src={UserData?.user?.image || ""}
+                          alt=""
+                          width={32}
+                          height={32}
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <div className="text-base font-medium text-gray-800">
+                          {UserData?.user?.name}
+                        </div>
+                        <div className="text-sm font-medium text-gray-500">
+                          {UserData?.user?.email}
+                        </div>
+                      </div>
+                      <div className="mt-3 space-y-1 px-2">
+                        {userNavigation.map((item) => (
+                          <Disclosure.Button
+                            key={item.name}
+                            as="a"
+                            href={item.href}
+                            className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                            onClick={() => {
+                              if (item.name === "Sign out") {
+                                signOut();
+                              }
+                            }}
+                          >
+                            {item.name}
+                          </Disclosure.Button>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={() => signIn("discord")}
                     >
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
+                      Sign In
+                    </button>
+                  )}
                 </div>
               </div>
             </Disclosure.Panel>
