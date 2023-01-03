@@ -53,6 +53,7 @@ const ComicPage: NextPageWithLayout = () => {
               className="object-cover object-center group-hover:opacity-75"
               height={202}
               width={802}
+              loading="lazy"
             />
           </div>
         ))}
