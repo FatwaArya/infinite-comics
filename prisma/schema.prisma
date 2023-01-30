@@ -70,19 +70,17 @@ model Comic {
   assets    Asset[]
 
   @@unique([id, title])
-  @@index([title], name: "title")
 }
 
 model Asset {
-  id         String   @id @default(cuid())
-  chapter    Int
-  part       Int
-  comicUrl   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  Comic      Comic?   @relation(fields: [comicTitle], references: [title])
-  comicTitle String
+  id        String   @id @default(cuid())
+  chapter   Int
+  part      Int
+  comicUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comicId   String
+  comic     Comic    @relation(fields: [comicId], references: [id], onDelete: Cascade)
 
   @@index([comicUrl], name: "comicUrl")
-  @@index([comicTitle], name: "comicTitle")
 }

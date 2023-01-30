@@ -19,14 +19,14 @@ export const comicRouter = router({
   getComicChapter: publicProcedure
     .input(
       z.object({
-        comicTitle: z.string().optional(),
+        comicId: z.string().optional(),
       })
     )
     .query(async ({ input, ctx }) => {
       const prisma = ctx.prisma;
       return prisma.asset.findMany({
         where: {
-          comicTitle: input.comicTitle,
+          comicId: input.comicId,
         },
         distinct: ["chapter"],
         select: {
@@ -42,8 +42,8 @@ export const comicRouter = router({
     }),
   getComics: publicProcedure.input(z.object({})).query(async ({ ctx }) => {
     const prisma = ctx.prisma;
-    //find only id and title
-    return prisma.comic.findMany({
+
+    const comics = prisma.comic.findMany({
       select: {
         id: true,
         title: true,
@@ -53,6 +53,7 @@ export const comicRouter = router({
         createdAt: "desc",
       },
     });
+    return comics;
   }),
   createComic: protectedProcedure
     .input(
@@ -80,7 +81,7 @@ export const comicRouter = router({
           z.object({
             chapter: z.number(),
             part: z.number(),
-            comicTitle: z.string(),
+            comicId: z.string(),
             comicUrl: z.string(),
           })
         ),
@@ -96,9 +97,9 @@ export const comicRouter = router({
   getComicInfinite: publicProcedure
     .input(
       z.object({
-        id: z.string(),
-        chapter: z.number(),
-        cursor: z.string().optional(),
+        id: z.string().nullish(),
+        chapter: z.number().nullish(),
+        cursor: z.string().nullish(),
         limit: z.number().min(1).max(100).default(10),
       })
     )
@@ -107,24 +108,21 @@ export const comicRouter = router({
       const cursor = input.cursor;
       const comics = prisma.comic.findUnique({
         where: {
-          id: input.id,
+          id: input.id ? input.id : undefined,
         },
         include: {
           assets: {
             where: {
-              chapter: input.chapter,
+              chapter: input.chapter ? input.chapter : undefined,
             },
             take: input.limit + 1,
             skip: input.cursor ? 1 : 0,
             cursor: input.cursor ? { id: input.cursor } : undefined,
-            orderBy: {
-              chapter: "asc",
-            },
           },
         },
       });
       let nextCursor: typeof cursor | undefined = undefined;
-      const comic = (await comics) as any;
+      const comic = await comics;
 
       if (comic?.assets?.length > input.limit) {
         nextCursor = comic?.assets[input.limit - 1]?.id;

@@ -33,7 +33,7 @@ export default function ComicChapterList({
   title: string | undefined;
 }) {
   const { data: chapters } = trpc.comic.getComicChapter.useQuery({
-    comicTitle: title,
+    comicId: titleId,
   });
 
   return (

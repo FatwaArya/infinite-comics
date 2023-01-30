@@ -29,7 +29,6 @@ export default function Navbar({ children }: NavbarLayoutProps) {
   ]);
 
   const { asPath } = useRouter();
-  console.log("asPath", asPath);
   useEffect(() => {
     if (asPath) {
       const newNavigation = navigation.map((nav) => ({

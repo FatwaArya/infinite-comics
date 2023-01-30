@@ -23,12 +23,7 @@ const ComicPage: NextPageWithLayout = () => {
         chapter: parseInt(chapter as string),
       },
       {
-        getNextPageParam: (lastPage) => {
-          if (lastPage?.comics?.length?.[0] < Limit) {
-            return undefined;
-          }
-          return lastPage?.comics?.[lastPage?.comics?.length - 1]?.id;
-        },
+        getNextPageParam: (lastPage) => lastPage?.nextCursor,
       }
     );
   const comics = data?.pages.flatMap((page) => page?.comics) ?? [];
@@ -46,14 +41,13 @@ const ComicPage: NextPageWithLayout = () => {
       </Head>
       <div>
         {comics.map((comic) => (
-          <div key={comic?.id} className="flex justify-center">
+          <div key={comic?.comicUrl} className="flex justify-center">
             <Image
               src={comic?.comicUrl || ""}
               alt={"good comics"}
               className="object-cover object-center group-hover:opacity-75"
               height={202}
               width={802}
-              loading="lazy"
             />
           </div>
         ))}
