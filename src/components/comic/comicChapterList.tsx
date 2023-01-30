@@ -27,7 +27,6 @@ dayjs.updateLocale("en", {
 });
 export default function ComicChapterList({
   titleId,
-  title,
 }: {
   titleId: string | undefined;
   title: string | undefined;
