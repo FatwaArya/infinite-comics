@@ -8,15 +8,11 @@ import { DashboardLayout } from "../../components/dasboardLayout";
 import { supabase } from "../../utils/supabase";
 import { trpc } from "../../utils/trpc";
 import { Fragment, useState } from "react";
-import { Combobox, Listbox, Transition } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon, } from "@heroicons/react/24/solid";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
-}
-interface Comic {
-  id: string;
-  title: string;
 }
 
 const Dashboard: NextPageWithLayout = () => {
@@ -29,7 +25,8 @@ const Dashboard: NextPageWithLayout = () => {
   const [selectedComic, setSelectedComic] = useState(comics?.[1] ?? null)
   const [chapter, setChapter] = useState(1);
   const [comicAsset, setComicAsset] = useState<FileList>();
-
+  //invalidate comics 
+  const utils = trpc.useContext();
 
   // const [query, setQuery] = useState("");
   // const filteredComics =
@@ -78,7 +75,7 @@ const Dashboard: NextPageWithLayout = () => {
               },
               {
                 onSuccess: () => {
-                  refetch();
+                  utils.comic.getComics.invalidate();
                 },
               }
             );
