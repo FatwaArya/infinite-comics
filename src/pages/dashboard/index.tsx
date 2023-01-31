@@ -20,7 +20,7 @@ const Dashboard: NextPageWithLayout = () => {
   const createComic = trpc.comic.createComic.useMutation();
   const createComicAsset = trpc.comic.uploadComicAsset.useMutation();
 
-  const { data: comics, refetch } = trpc.comic.getComics.useQuery({});
+  const { data: comics } = trpc.comic.getComics.useQuery({});
 
   const [selectedComic, setSelectedComic] = useState(comics?.[1] ?? null)
   const [chapter, setChapter] = useState(1);
